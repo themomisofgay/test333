@@ -11,13 +11,13 @@ local Services													= setmetatable({}, {
 
 -- // Cleanup
 do
-	if getgenv()["Discord.gg/PfXgy5Nq34"] then
-		for Index, Connection in next, getgenv()["Discord.gg/PfXgy5Nq34"] do
+	if getgenv()["hiii"] then
+		for Index, Connection in next, getgenv()["hiii"] do
 			Connection:Disconnect()
 		end
 	end
 
-	getgenv()["Discord.gg/PfXgy5Nq34"]							= {}
+	getgenv()["hiii"]							= {}
 end
 -- // Cleanup End
 
@@ -103,7 +103,7 @@ do
 	if not Config.Version then
 		if isfolder("Fondra-Physics") then delfolder("Fondra-Physics") end
 
-		Client:Kick("Fondra Physics\nThis is out of date, please get the new loader.\nDiscord.gg/PfXgy5Nq34")
+		Client:Kick("Fondra Physics\nThis is out of date, please get the new loader.\nhiii")
 
 		return DiscordJoin("PfXgy5Nq34")
 	end
@@ -111,7 +111,7 @@ do
 	if Config.Version ~= Version then
 		if isfolder("Fondra-Physics") then delfolder("Fondra-Physics") end
 
-		Client:Kick("Fondra Physics\nThis is out of date, please get the new loader.\nDiscord.gg/PfXgy5Nq34")
+		Client:Kick("Fondra Physics\nThis is out of date, please get the new loader.\nhiii")
 
 		return DiscordJoin("PfXgy5Nq34")
 	end
@@ -212,6 +212,9 @@ local Apply  													= function(Model, Gender, Mode)
 	if Config.Debug then
 		print(Result.Success, Result.Message)
 	end
+	
+	RightArm.Transparency = 0
+	LeftArm.Transparency = 0
 end
 
 local Render 													= function(Delta)
@@ -315,7 +318,7 @@ local Render 													= function(Delta)
 	end
 end
 
-getgenv()["Discord.gg/PfXgy5Nq34"]["RunService"]				= Services.RunService.RenderStepped:Connect(Render)
+getgenv()["hiii"]["RunService"]				= Services.RunService.RenderStepped:Connect(Render)
 
 if Game.CreatorId == 5212858 then
 	for Index, Object in next, Services.Workspace.Live:GetChildren() do
@@ -326,7 +329,7 @@ if Game.CreatorId == 5212858 then
 		if Config.Gender[1] ~= "Randomized" then Gender = nil; Mode = nil end
 		if string.sub(Name, 1, 1) ~= "." then continue end
 
-		getgenv()["Discord.gg/PfXgy5Nq34"][Character] 			= Character.ChildAdded:Connect(function(New)
+		getgenv()["hiii"][Character] 			= Character.ChildAdded:Connect(function(New)
 			task.wait()
 
 			if New:IsA("Model") then return end
@@ -351,7 +354,7 @@ if Game.CreatorId == 5212858 then
 
 		if Config.Gender[1] ~= "Randomized" then Gender = nil; Mode = nil end
 
-		getgenv()["Discord.gg/PfXgy5Nq34"][Character] 			= Character.ChildAdded:Connect(function(New)
+		getgenv()["hiii"][Character] 			= Character.ChildAdded:Connect(function(New)
 			task.wait()
 
 			if New:IsA("Model") then return end
@@ -377,8 +380,12 @@ for Index, Player in next, Services.Players:GetPlayers() do
 
 	if Config.Gender[1] ~= "Randomized" then Gender = nil; Mode = nil end
 	if Character then Apply(Character, Gender, Mode) end
-
-	getgenv()["Discord.gg/PfXgy5Nq34"][Player.Name] 			= Player.CharacterAdded:Connect(function(New)
+	
+	if getgenv()['hiii'][Player] then
+		return
+	end
+	
+	getgenv()["hiii"][Player] 			= Player.CharacterAdded:Connect(function(New)
 		task.wait(1)
 
 		WaitForChild(New, "HumanoidRootPart")
@@ -390,15 +397,19 @@ for Index, Player in next, Services.Players:GetPlayers() do
 	end)
 end
 
-getgenv()["Discord.gg/PfXgy5Nq34"]["PlayerAdded"] 				= Services.Players.PlayerAdded:Connect(function(Player)
+getgenv()["hiii"]["PlayerAdded"] 				= Services.Players.PlayerAdded:Connect(function(Player)
 	local Player 												= Player
 	local Character 											= Player.Character
 	local Gender, Mode 											= Character and Modules.Gender(Character, string.split(Character.Humanoid.DisplayName, " ")[1])
 
 	if Config.Gender[1] ~= "Randomized" then Gender = nil; Mode = nil end
 	if Character then Apply(Character, Gender, Mode) end
-
-	getgenv()["Discord.gg/PfXgy5Nq34"][Player.Name]				= Player.CharacterAdded:Connect(function(New)
+	
+	if typeof(getgenv()['hiii'][Player]) == 'RBXScriptConnection' then
+		getgenv()['hiii'][Player]:Disconnect()
+	end
+	
+	getgenv()["hiii"][Player]				= Player.CharacterAdded:Connect(function(New)
 		task.wait(1)
 
 		WaitForChild(New, "HumanoidRootPart")
