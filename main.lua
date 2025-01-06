@@ -123,7 +123,7 @@ do
 			["Gender.rbxm"]										= "https://github.com/lncoognito/ROBLOX/raw/main/Boobs/Modules/Gender.rbxm",
 
 			["Spring.rbxm"]										= "https://github.com/lncoognito/ROBLOX/raw/main/Boobs/Modules/Spring.rbxm",
-			["Assets.rbxm"]										= "https://github.com/lncoognito/ROBLOX/raw/main/Boobs/Modules/Assets.rbxm",
+			["Assets.rbxm"]										= "https://github.com/themomisofgay/test333/raw/main/Assets.rbxm",
 		},
 
 		["Nipple"]												= "https://github.com/lncoognito/ROBLOX/raw/main/Boobs/Assets/Nipple.png",
